@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+      "baseUrl": "src",
+      "paths": {
+        "crypto": ["../node_modules/crypto-browserify"],
+        "stream": ["../node_modules/stream-browserify"],
+        "util": ["../node_modules/util"],
+        "buffer": ["../node_modules/buffer"]
+      }
+    }
+  }
+  

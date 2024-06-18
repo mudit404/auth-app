@@ -1,0 +1,97 @@
+@keyframes main {
+  from {background-color: red;}
+  to {background-color: yellow;}
+}
+
+
+.landing {
+  background: black; /* Background color of the box */
+  border-radius: 15px; /* Curved vertices */
+  height: 600px; /* Adjust height as needed */
+  width: 430px; /* Adjust width as needed */
+  display: flex; /* Centering content inside the box */
+  align-items: center; /* Centering content vertically */
+  justify-content: center; /* Centering content horizontally */
+  flex-direction: column;
+  color: white;
+  font-size: 2rem;
+  /* box-shadow: 10px 10px 50px grey; */
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.main-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Full viewport height */
+  width: 100vw; /* Full viewport width */
+  box-sizing: border-box; /* Ensure padding is included in the height calculation */
+  background-color: beige; /* Background color of the main page */
+}
+
+label{
+  font-size: medium;
+}
+
+
+.btn-container{
+  margin-top: 20px;
+}
+
+.btn {
+  margin: 5px; /* Space between buttons */
+  padding: 10px 20px; /* Button padding */
+  background-color: white; /* Button background color */
+  border: none; /* Remove button border */
+  border-radius: 5px; /* Rounded button corners */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+.logo{
+  width: 70px; 
+  height: auto;
+}
+
+.top-bar{
+  display:flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  margin-left: 200px;
+  margin-right: 200px;
+}
+
+
+.header {
+  position: fixed; /* Fix the header at the top */
+  top: 0;
+  width: 100%;
+  background-color: #333; /* Background color of the header */
+  color: white;
+  padding: 1rem; /* Adjust padding as needed */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1000; /* Ensure it's above other elements */
+}
+
+.header img {
+  height: 40px; /* Adjust logo size as needed */
+}
+
+
+.sign-out-btn{
+  margin-left: auto;
+  margin-top: 10px;
+}
+
+.dashboard{
+  display: flex;
+  align-items: center; /* Centering content vertically */
+  justify-content: center; /* Centering content horizontally */
+  flex-direction: column;
+  /* animation-name: main;
+  animation-duration: 40s; */
+  height: 100vh;
+  width: 100vw;
+
+}
+
