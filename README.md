@@ -1,68 +1,173 @@
-# Auth App
+# QuoteKeeper Application
+
+QuoteKeeper is a full-stack web application that allows users to register, login, and save their favorite quotes. The application consists of a Node.js backend with SQLite database and a Next.js frontend.
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Getting Started](#getting-started)
+  - [Backend Setup](#backend-setup)
+  - [Frontend Setup](#frontend-setup)
+- [API Endpoints](#api-endpoints)
+- [Authentication](#authentication)
+- [Database](#database)
+- [Screenshots](#screenshots)
+- [Future Enhancements](#future-enhancements)
 
 ## Overview
-Auth App is a simple authentication application built using a client-server architecture. The application allows users to register, log in, and access protected routes. It leverages React for the front-end and bcrypt for secure password hashing.
+
+QuoteKeeper is a simple but effective application that demonstrates a complete authentication flow with JWT tokens and secure storage of user data. Users can create accounts, login, and save or update their favorite quotes.
 
 ## Features
-- User Registration
-- User Login
-- Protected Routes
-- Token-based Authentication
-- Secure Password Hashing with bcrypt
+
+- User registration and authentication
+- JWT-based authentication
+- Secure password handling
+- Personal quote management
+- Responsive UI with custom styling
+- Persistent sessions with localStorage
 
 ## Tech Stack
-- **Client**: React, HTML, CSS, JavaScript
-- **Server**: Node.js, Express.js
-- **Database**: MongoDB
-- **Authentication**: bcrypt, JSON Web Tokens (JWT)
 
-## Installation
+### Backend
+- Node.js
+- Express.js
+- SQLite (via sqlite3)
+- JSON Web Tokens (JWT)
+- bcryptjs for password encryption
 
-1. Clone the repository:
+### Frontend
+- Next.js 14
+- React 18
+- TypeScript
+- CSS (custom styling)
+
+## Project Structure
+
+```
+quotekeeper/
+├── backend/               # Backend application
+│   ├── db.js              # Database connection and initialization
+│   ├── index.js           # Express server and API routes
+│   ├── models/            # Data models
+│   │   └── user.model.js  # User model
+│   ├── auth.db            # SQLite database file (created at runtime)
+│   └── package.json       # Backend dependencies
+│
+├── frontend/              # Next.js frontend application
+│   ├── app/               # Next.js app directory
+│   │   ├── globals.css    # Global styles
+│   │   ├── layout.tsx     # Root layout
+│   │   ├── page.tsx       # Home page (dashboard)
+│   │   ├── login/         # Login page
+│   │   └── register/      # Registration page
+│   ├── context/           # React context
+│   │   └── AuthContext.tsx # Authentication context
+│   ├── services/          # API services
+│   │   └── api.ts         # API client
+│   └── package.json       # Frontend dependencies
+```
+
+## Getting Started
+
+### Backend Setup
+
+1. Navigate to the backend directory:
    ```bash
-   git clone https://github.com/mudit404/auth-app.git
-2. Navigate to the server directory and install the dependencies:
-    cd auth-app/server
-    npm install
-3. Navigate to the client directory and install the dependencies:
-   cd ../client
+   cd backend
+   ```
+
+2. Install dependencies:
+   ```bash
    npm install
+   ```
 
-## Running the Application
-1. Start the server:
-  cd ../server
-  npm start
-2. Start the client:
-  cd ../client
-  npm start
-3. Open your browser and navigate to http://localhost:3000
+3. Start the server:
+   ```bash
+   npm start
+   ```
 
-## Usage
-HomePage->
-<img width="1660" alt="image" src="https://github.com/mudit404/auth-app/assets/93205166/f7cf28be-f766-4f53-a116-867ba56f6f69">
+   For development with auto-restart:
+   ```bash
+   npm run dev
+   ```
 
-Register a new user.
-<img width="1660" alt="image" src="https://github.com/mudit404/auth-app/assets/93205166/248649b6-eb54-4615-b084-b6e1bca64447">
+The server will run on http://localhost:1337 and will automatically create the SQLite database file.
 
+### Frontend Setup
 
-Log in with the registered user credentials.
-<img width="1660" alt="Screenshot 2024-06-26 at 5 43 52 PM" src="https://github.com/mudit404/auth-app/assets/93205166/725af24f-370c-4926-ac9c-a249d8993075">
+1. Navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
 
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-Access protected routes and features.
-<img width="1660" alt="image" src="https://github.com/mudit404/auth-app/assets/93205166/53d5c1ce-ab2e-4bc4-9667-006be92b4d98">
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
+   The frontend will be available at http://localhost:3000
 
-## Contributing
-Feel free to fork this repository and contribute by submitting a pull request. Please make sure to update tests as appropriate.
+## API Endpoints
 
-## License
-This project is licensed under the MIT License.
+### Authentication
 
-## Contact
-For any questions or suggestions, please open an issue or contact the repository owner.
+- **POST /api/register**
+  - Register a new user
+  - Body: `{ name, email, password }`
+  - Response: `{ status: 'ok' }` or `{ status: 'error', error: '...' }`
 
+- **POST /api/login**
+  - Login with credentials
+  - Body: `{ email, password }`
+  - Response: `{ status: 'ok', user: 'JWT_TOKEN' }` or `{ status: 'error', error: '...' }`
 
+### Quotes
 
+- **GET /api/quote**
+  - Get the user's current quote
+  - Headers: `{ 'x-access-token': 'JWT_TOKEN' }`
+  - Response: `{ status: 'ok', quote: '...', name: '...' }`
 
+- **POST /api/quote**
+  - Update the user's quote
+  - Headers: `{ 'x-access-token': 'JWT_TOKEN' }`
+  - Body: `{ quote: '...' }`
+  - Response: `{ status: 'ok' }` or `{ status: 'error', error: '...' }`
 
+## Authentication
+
+The application uses JWT (JSON Web Tokens) for authentication. When a user logs in, the server generates a token containing the user's information, which is then stored in the browser's localStorage. This token is sent with subsequent requests to authenticate the user.
+
+## Database
+
+The backend uses SQLite, a file-based database that requires no separate database server. The database schema includes:
+
+### Users Table
+- `id` - Primary key, auto-incrementing integer
+- `name` - User's full name
+- `email` - User's email (unique)
+- `password` - User's password (stored securely)
+- `quote` - User's saved quote
+
+## Screenshots
+
+[Add screenshots of your application here]
+
+## Future Enhancements
+
+- Multiple quotes per user
+- Quote categories or tags
+- Sharing quotes with other users
+- Public profile pages
+- Password reset functionality
+- Social authentication (Google, Facebook, etc.)
+- Dark/light theme toggle
